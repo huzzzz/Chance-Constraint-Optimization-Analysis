@@ -83,12 +83,54 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Plot
-
 figure;
-plot(log(-obj), '-');
+plot(prange, log(-obj), '-o');
+xlabel('p');
+ylabel('log(-f(x))');
 title('log Objective function v/s p');
 
+% P2 v/s P3
 figure;
 surf(ppx, ppy, log(-objP2P3));
-
+xlabel('p2');
+ylabel('p3');
+zlabel('log(-f(x))');
 title('Objective v/s p2 and p3');
+
+% P1 v/s P3
+figure;
+surf(ppx, ppy, log(-objP1P3));
+xlabel('p1');
+ylabel('p3');
+zlabel('log(-f(x))');
+title('Objective v/s p1 and p3');
+
+% Objective v/s Variances of coefficients of x1, x2
+figure;
+surf(scales, scales, log(-objscale));
+xlabel('\sigma_1');
+ylabel('\sigma_2');
+zlabel('log(-f(x))');
+title('Objective v/s \sigma of x_1, x_2');
+
+% Variance of x1, x2 w.r.t. change in 1
+figure;
+hold on;
+plot(scales, x_var(:, 10, 1), '-o');
+plot(scales, x_var(:, 10, 2), '-o');
+legend('x_1', 'x_2');
+hold off;
+xlabel('Scale (s_1)');
+ylabel('Coordinates (x_1, x_2)');
+title('Coordinates v/s scale');
+    
+% Variance of x1, x2 w.r.t. change in 2
+figure;
+hold on;
+plot(scales, x_var(10, :, 1), '-o');
+plot(scales, x_var(10, :, 2), '-o');
+legend('x_1', 'x_2');
+hold off;
+xlabel('Scale (s_2)');
+ylabel('Coordinates (x_1, x_2)');
+title('Coordinates v/s scale');
